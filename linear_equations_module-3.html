@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solving Linear Equations – Year 8 Maths Module</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f4ef; color: #1a1a1a; line-height: 1.6; }
+.page-header { background: #1a1a2e; color: #fff; padding: 2.5rem 2rem 2rem; text-align: center; }
+.course-label { font-size: 12px; color: #8888aa; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+.page-header h1 { font-size: 32px; font-weight: 700; margin-bottom: 0.4rem; }
+.page-header .subtitle { font-size: 15px; color: #aaaacc; margin-bottom: 1.2rem; }
+.header-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.hbadge { display: inline-block; font-size: 12px; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); color: #ccc; }
+.container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+.hero { background: #fff; border-radius: 14px; padding: 2rem; margin-bottom: 1.5rem; border: 1px solid #e0e0d8; }
+.hero-title { font-size: 19px; font-weight: 700; margin-bottom: 0.5rem; }
+.hero-desc { font-size: 14px; color: #555; line-height: 1.75; margin-bottom: 1.2rem; }
+.hero-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #666; }
+.badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; background: #e8f4fd; color: #1565c0; }
+.progress-overview { background: #fff; border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; border: 1px solid #e0e0d8; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.po-label { font-size: 13px; color: #888; min-width: 80px; }
+.po-bar-wrap { flex: 1; min-width: 200px; background: #f0f0ea; border-radius: 99px; height: 8px; }
+.po-bar-fill { height: 8px; border-radius: 99px; background: #1a1a2e; transition: width 0.5s ease; width: 0%; }
+.po-stats { display: flex; gap: 1.5rem; }
+.po-stat { text-align: center; }
+.po-stat-num { font-size: 20px; font-weight: 700; color: #1a1a2e; }
+.po-stat-lbl { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+.nav-tabs { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; background: #fff; border-radius: 12px; padding: 6px; border: 1px solid #e0e0d8; }
+.tab-btn { font-size: 13px; padding: 8px 16px; border-radius: 8px; border: none; background: transparent; color: #666; cursor: pointer; transition: all 0.15s; font-family: inherit; font-weight: 500; }
+.tab-btn:hover { background: #f0f0ea; color: #1a1a1a; }
+.tab-btn.active { background: #1a1a2e; color: #fff; }
+.panel { display: none; }
+.panel.active { display: block; }
+.card { background: #fff; border: 1px solid #e0e0d8; border-radius: 14px; padding: 1.5rem; margin-bottom: 1rem; }
+.card-title { font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 0.75rem; }
+.card-body { font-size: 14px; color: #555; line-height: 1.8; }
+.outcome-tag { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 20px; background: #e8f5e9; color: #2e7d32; margin-top: 10px; font-weight: 600; }
+.concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.concept-card { background: #f8f8f4; border-radius: 10px; padding: 1rem; border: 1px solid #e8e8e0; }
+.concept-card-icon { font-size: 24px; margin-bottom: 6px; }
+.concept-card-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; color: #1a1a1a; }
+.concept-card-body { font-size: 13px; color: #666; line-height: 1.6; }
+.equation-box { background: #1a1a2e; border-radius: 10px; padding: 1rem 1.5rem; font-family: 'Courier New', monospace; font-size: 20px; color: #fff; text-align: center; margin: 0.75rem 0; font-weight: 700; }
+.solution-table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; }
+.solution-table tr { border-bottom: 1px solid #f0f0ea; }
+.solution-table tr:last-child { border-bottom: none; }
+.solution-table td { padding: 10px 8px; font-size: 14px; vertical-align: middle; }
+.step-num { width: 28px; height: 28px; border-radius: 50%; background: #1a1a2e; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+.step-expr { font-family: 'Courier New', monospace; font-weight: 600; color: #1a1a2e; font-size: 15px; }
+.step-reason { color: #888; font-size: 13px; font-style: italic; }
+.tips-box { background: #fffbea; border: 1px solid #ffe082; border-radius: 10px; padding: 1rem 1.25rem; margin-top: 1rem; }
+.tips-box-title { font-size: 13px; font-weight: 700; color: #f57f17; margin-bottom: 6px; }
+.tips-list { list-style: none; }
+.tips-list li { font-size: 13px; color: #5d4037; padding: 4px 0 4px 18px; position: relative; line-height: 1.6; }
+.tips-list li::before { content: "→"; position: absolute; left: 0; color: #f57f17; font-weight: 700; }
+.example-stepper { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+.ex-btn { font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-family: inherit; color: #666; transition: all 0.15s; }
+.ex-btn.active { background: #1a1a2e; color: #fff; border-color: #1a1a2e; }
+.example-panel { display: none; }
+.example-panel.active { display: block; }
+.difficulty-badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; margin-left: 6px; font-weight: 600; vertical-align: middle; }
+.diff-easy { background: #e8f5e9; color: #2e7d32; }
+.diff-medium { background: #fff8e1; color: #f57f17; }
+.diff-hard { background: #fce4ec; color: #c62828; }
+.slider-row { display: flex; align-items: center; gap: 14px; margin: 1rem 0; }
+.slider-row label { font-size: 14px; color: #555; min-width: 50px; font-weight: 600; }
+.slider-row input[type=range] { flex: 1; accent-color: #1a1a2e; cursor: pointer; }
+.slider-val { font-size: 18px; font-weight: 700; color: #1a1a2e; min-width: 36px; font-family: 'Courier New', monospace; }
+.balance-result { font-size: 14px; padding: 14px 18px; border-radius: 10px; background: #f5f5f0; color: #555; margin-top: 0.75rem; border: 1px solid #e0e0d8; text-align: center; line-height: 1.6; transition: all 0.3s; }
+.balance-ok { background: #e8f5e9; border-color: #a5d6a7; color: #2e7d32; font-weight: 600; }
+.quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem; }
+.quiz-progress-label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.quiz-score-live { font-size: 13px; color: #1a1a2e; font-weight: 700; }
+.progress-bar-wrap { background: #f0f0ea; border-radius: 99px; height: 6px; margin-bottom: 1.25rem; }
+.progress-bar-fill { height: 6px; border-radius: 99px; background: #1a1a2e; transition: width 0.4s ease; }
+.quiz-q { font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 0.4rem; font-family: 'Courier New', monospace; }
+.quiz-context { font-size: 13px; color: #888; margin-bottom: 1rem; font-style: italic; }
+.options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+.opt-btn { font-size: 15px; padding: 13px 16px; border-radius: 10px; border: 1.5px solid #e0e0d8; background: #fff; color: #1a1a1a; cursor: pointer; text-align: center; transition: all 0.15s; font-family: 'Courier New', monospace; font-weight: 600; }
+.opt-btn:hover:not(:disabled) { background: #f5f5f0; border-color: #bbb; transform: translateY(-1px); }
+.opt-btn.correct { background: #e8f5e9; border-color: #66bb6a; color: #2e7d32; }
+.opt-btn.wrong { background: #ffebee; border-color: #ef9a9a; color: #c62828; }
+.opt-btn:disabled { cursor: default; transform: none; }
+.feedback { font-size: 14px; padding: 14px 18px; border-radius: 10px; margin-top: 10px; display: none; line-height: 1.7; }
+.feedback.show { display: block; }
+.feedback.ok { background: #e8f5e9; color: #1b5e20; border: 1px solid #a5d6a7; }
+.feedback.bad { background: #ffebee; color: #b71c1c; border: 1px solid #ef9a9a; }
+.results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.25rem 0; }
+.result-stat { background: #f8f8f4; border-radius: 10px; padding: 1rem; text-align: center; border: 1px solid #e0e0d8; }
+.result-stat-num { font-size: 28px; font-weight: 700; color: #1a1a2e; }
+.result-stat-lbl { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+.score-bar-wrap { background: #f0f0ea; border-radius: 99px; height: 10px; margin: 0.75rem 0; }
+.score-bar-fill { height: 10px; border-radius: 99px; transition: width 0.8s ease; }
+.rb-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0ea; font-size: 13px; }
+.rb-row:last-child { border-bottom: none; }
+.rb-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+.rb-correct { background: #e8f5e9; color: #2e7d32; }
+.rb-wrong { background: #ffebee; color: #c62828; }
+.rb-text { flex: 1; font-family: 'Courier New', monospace; color: #1a1a1a; }
+.restart-btn { margin-top: 1rem; font-size: 14px; padding: 11px 28px; border-radius: 10px; border: none; background: #1a1a2e; color: #fff; cursor: pointer; font-family: inherit; font-weight: 600; }
+.restart-btn:hover { background: #2a2a4e; }
+.diff-pathway-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.diff-card { border-radius: 12px; padding: 1.25rem; border: 1.5px solid; }
+.diff-card-foundation { background: #fff8e1; border-color: #ffe082; }
+.diff-card-core { background: #e8f4fd; border-color: #90caf9; }
+.diff-card-extension { background: #e8f5e9; border-color: #a5d6a7; grid-column: span 2; }
+.diff-card-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.diff-card-body { font-size: 13px; line-height: 1.65; margin-bottom: 8px; }
+.diff-card-tasks { list-style: none; }
+.diff-card-tasks li { font-size: 12px; padding: 3px 0 3px 16px; position: relative; }
+.diff-card-tasks li::before { content: "✓"; position: absolute; left: 0; font-weight: 700; }
+.diff-card-foundation .diff-card-tasks li::before { color: #f57f17; }
+.diff-card-core .diff-card-tasks li::before { color: #1565c0; }
+.diff-card-extension .diff-card-tasks li::before { color: #2e7d32; }
+.parent-note { background: #fff; border: 1px solid #e0e0d8; border-left: 5px solid #1a1a2e; border-radius: 0 12px 12px 0; padding: 1.25rem 1.5rem; margin-top: 1rem; font-size: 14px; color: #444; line-height: 1.8; }
+.curriculum-links { background: #f8f8f4; border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1rem; border: 1px solid #e0e0d8; }
+.curriculum-links-title { font-size: 12px; font-weight: 700; color: #1a1a2e; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.cl-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #e8e8e0; font-size: 13px; }
+.cl-item:last-child { border-bottom: none; }
+.cl-code { font-weight: 700; color: #1565c0; text-decoration: none; white-space: nowrap; }
+.cl-code:hover { text-decoration: underline; }
+.cl-desc { color: #555; line-height: 1.6; }
+footer { text-align: center; padding: 2rem; font-size: 12px; color: #aaa; border-top: 1px solid #e0e0d8; margin-top: 2rem; background: #fff; }
+@media (max-width: 600px) {
+  .options-grid, .concept-grid, .diff-pathway-grid, .results-grid { grid-template-columns: 1fr; }
+  .diff-card-extension { grid-column: span 1; }
+  .page-header h1 { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="course-label">ETL503 · Assignment 3 · Resource Development · Danni Wang (s396630)</div>
+  <h1>Solving Linear Equations</h1>
+  <div class="subtitle">An interactive online learning module for Year 8 Secondary Mathematics</div>
+  <div class="header-badges">
+    <span class="hbadge">📐 Year 8</span>
+    <span class="hbadge">🔢 Number &amp; Algebra</span>
+    <span class="hbadge">✅ ACMNA193 · ACMNA194</span>
+    <span class="hbadge">⏱ 60–75 min</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="hero">
+    <div class="hero-title">Engaging 21st-Century Learners: Technology-Enhanced Pedagogies in Secondary Mathematics Education</div>
+    <div class="hero-desc">This module builds conceptual understanding of linear equations through a balance metaphor, visual exploration, and scaffolded practice. Students move from concrete to abstract, using interactive tools before tackling a full 10-question quiz across three difficulty levels.</div>
+    <div class="hero-meta">
+      <div class="meta-item">⏱ 60–75 min</div>
+      <div class="meta-item">👥 Year 8 · Individual or pairs</div>
+      <div class="meta-item">💻 Device required</div>
+      <div class="meta-item"><span class="badge">ACMNA193 / ACMNA194</span></div>
+    </div>
+  </div>
+
+  <div class="progress-overview">
+    <span class="po-label">Your progress</span>
+    <div class="po-bar-wrap"><div class="po-bar-fill" id="overallBar"></div></div>
+    <div class="po-stats">
+      <div class="po-stat"><div class="po-stat-num" id="statCorrect">0</div><div class="po-stat-lbl">Correct</div></div>
+      <div class="po-stat"><div class="po-stat-num" id="statAttempted">0</div><div class="po-stat-lbl">Attempted</div></div>
+      <div class="po-stat"><div class="po-stat-num" id="statStreak">0</div><div class="po-stat-lbl">Streak 🔥</div></div>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="switchTab('learn',this)">📖 1. Learn</button>
+    <button class="tab-btn" onclick="switchTab('examples',this)">📝 2. Worked Examples</button>
+    <button class="tab-btn" onclick="switchTab('explore',this)">⚖️ 3. Explore</button>
+    <button class="tab-btn" onclick="switchTab('practice',this)">✏️ 4. Practice Quiz</button>
+    <button class="tab-btn" onclick="switchTab('support',this)">🧩 5. Support &amp; Resources</button>
+    <button class="tab-btn" onclick="switchTab('external',this)">🌐 6. Further Learning</button>
+  </div>
+
+  <!-- TAB 1: LEARN -->
+  <div id="tab-learn" class="panel active">
+    <div class="card">
+      <div class="card-title">⚖️ What is a linear equation?</div>
+      <div class="card-body">A <strong>linear equation</strong> is a mathematical statement that two expressions are <strong>equal</strong>. It always involves a variable (usually x) raised to the power of 1 — no squares, no cubes.<br><br>The most important rule: <strong>whatever you do to one side, you must do to the other.</strong> Think of a perfectly balanced scale — if you add weight to one side, you must add the same to the other to keep it level.</div>
+      <span class="outcome-tag">✅ ACMNA194 — Solve linear equations using algebraic and graphical techniques</span>
+    </div>
+    <div class="concept-grid">
+      <div class="concept-card"><div class="concept-card-icon">🔍</div><div class="concept-card-title">Identify the unknown</div><div class="concept-card-body">Find the variable (x, y, n…). Your goal is to get it alone on one side of the equals sign.</div></div>
+      <div class="concept-card"><div class="concept-card-icon">🔄</div><div class="concept-card-title">Inverse operations</div><div class="concept-card-body">Use the opposite operation to undo what's applied to x. Addition ↔ Subtraction. Multiplication ↔ Division.</div></div>
+      <div class="concept-card"><div class="concept-card-icon">⚖️</div><div class="concept-card-title">Maintain balance</div><div class="concept-card-body">Every operation must be applied to <em>both sides equally</em>. This is the golden rule — never break it.</div></div>
+      <div class="concept-card"><div class="concept-card-icon">✅</div><div class="concept-card-title">Verify by substitution</div><div class="concept-card-body">Always check: substitute your answer back into the original equation and confirm both sides are equal.</div></div>
+    </div>
+    <div class="tips-box">
+      <div class="tips-box-title">💡 Common mistakes to avoid</div>
+      <ul class="tips-list">
+        <li>Forgetting to apply the same operation to both sides</li>
+        <li>Dividing by the wrong number — always divide by the coefficient of x</li>
+        <li>Sign errors when moving terms across the equals sign</li>
+        <li>Skipping the substitution check — always verify your answer!</li>
+      </ul>
+    </div>
+    <div class="card" style="margin-top:1rem;">
+      <div class="card-title">📊 Types of linear equations you will encounter</div>
+      <div class="card-body">
+        <table style="width:100%;font-size:13px;border-collapse:collapse;">
+          <tr style="background:#f8f8f4;"><th style="padding:8px 12px;text-align:left;border-bottom:2px solid #e0e0d8;">Type</th><th style="padding:8px 12px;text-align:left;border-bottom:2px solid #e0e0d8;">Example</th><th style="padding:8px 12px;text-align:left;border-bottom:2px solid #e0e0d8;">Steps needed</th></tr>
+          <tr style="border-bottom:1px solid #f0f0ea;"><td style="padding:8px 12px;color:#2e7d32;font-weight:600;">One step</td><td style="padding:8px 12px;font-family:monospace;">x + 5 = 12</td><td style="padding:8px 12px;color:#666;">1 inverse operation</td></tr>
+          <tr style="border-bottom:1px solid #f0f0ea;"><td style="padding:8px 12px;color:#f57f17;font-weight:600;">Two steps</td><td style="padding:8px 12px;font-family:monospace;">2x + 3 = 11</td><td style="padding:8px 12px;color:#666;">Subtract, then divide</td></tr>
+          <tr><td style="padding:8px 12px;color:#c62828;font-weight:600;">Variables both sides</td><td style="padding:8px 12px;font-family:monospace;">3x + 1 = x + 9</td><td style="padding:8px 12px;color:#666;">Collect x terms first</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: WORKED EXAMPLES -->
+  <div id="tab-examples" class="panel">
+    <div class="card">
+      <div class="card-title">📝 Worked Examples — select a level</div>
+      <div class="example-stepper">
+        <button class="ex-btn active" onclick="showExample(0,this)">Example 1 <span class="difficulty-badge diff-easy">Easy</span></button>
+        <button class="ex-btn" onclick="showExample(1,this)">Example 2 <span class="difficulty-badge diff-easy">Easy</span></button>
+        <button class="ex-btn" onclick="showExample(2,this)">Example 3 <span class="difficulty-badge diff-medium">Medium</span></button>
+        <button class="ex-btn" onclick="showExample(3,this)">Example 4 <span class="difficulty-badge diff-medium">Medium</span></button>
+        <button class="ex-btn" onclick="showExample(4,this)">Example 5 <span class="difficulty-badge diff-hard">Hard</span></button>
+      </div>
+      <div id="example-0" class="example-panel active">
+        <div class="equation-box">x + 4 = 9</div>
+        <table class="solution-table">
+          <tr><td><span class="step-num">1</span></td><td><span class="step-expr">x + 4 − 4 = 9 − 4</span></td><td class="step-reason">Subtract 4 from both sides</td></tr>
+          <tr><td><span class="step-num">2</span></td><td><span class="step-expr">x = 5</span></td><td class="step-reason">Solution ✓</td></tr>
+          <tr style="background:#f0fff4;"><td colspan="3" style="padding:10px 8px;font-size:13px;color:#2e7d32;"><strong>Check:</strong> 5 + 4 = 9 ✓</td></tr>
+        </table>
+      </div>
+      <div id="example-1" class="example-panel">
+        <div class="equation-box">3x = 18</div>
+        <table class="solution-table">
+          <tr><td><span class="step-num">1</span></td><td><span class="step-expr">3x ÷ 3 = 18 ÷ 3</span></td><td class="step-reason">Divide both sides by 3</td></tr>
+          <tr><td><span class="step-num">2</span></td><td><span class="step-expr">x = 6</span></td><td class="step-reason">Solution ✓</td></tr>
+          <tr style="background:#f0fff4;"><td colspan="3" style="padding:10px 8px;font-size:13px;color:#2e7d32;"><strong>Check:</strong> 3 × 6 = 18 ✓</td></tr>
+        </table>
+      </div>
+      <div id="example-2" class="example-panel">
+        <div class="equation-box">2x + 3 = 11</div>
+        <table class="solution-table">
+          <tr><td><span class="step-num">1</span></td><td><span class="step-expr">2x + 3 − 3 = 11 − 3</span></td><td class="step-reason">Subtract 3 from both sides</td></tr>
+          <tr><td><span class="step-num">2</span></td><td><span class="step-expr">2x = 8</span></td><td class="step-reason">Simplify</td></tr>
+          <tr><td><span class="step-num">3</span></td><td><span class="step-expr">2x ÷ 2 = 8 ÷ 2</span></td><td class="step-reason">Divide both sides by 2</td></tr>
+          <tr><td><span class="step-num">4</span></td><td><span class="step-expr">x = 4</span></td><td class="step-reason">Solution ✓</td></tr>
+          <tr style="background:#f0fff4;"><td colspan="3" style="padding:10px 8px;font-size:13px;color:#2e7d32;"><strong>Check:</strong> 2(4) + 3 = 11 ✓</td></tr>
+        </table>
+      </div>
+      <div id="example-3" class="example-panel">
+        <div class="equation-box">4x − 5 = 19</div>
+        <table class="solution-table">
+          <tr><td><span class="step-num">1</span></td><td><span class="step-expr">4x − 5 + 5 = 19 + 5</span></td><td class="step-reason">Add 5 to both sides</td></tr>
+          <tr><td><span class="step-num">2</span></td><td><span class="step-expr">4x = 24</span></td><td class="step-reason">Simplify</td></tr>
+          <tr><td><span class="step-num">3</span></td><td><span class="step-expr">4x ÷ 4 = 24 ÷ 4</span></td><td class="step-reason">Divide both sides by 4</td></tr>
+          <tr><td><span class="step-num">4</span></td><td><span class="step-expr">x = 6</span></td><td class="step-reason">Solution ✓</td></tr>
+          <tr style="background:#f0fff4;"><td colspan="3" style="padding:10px 8px;font-size:13px;color:#2e7d32;"><strong>Check:</strong> 4(6) − 5 = 19 ✓</td></tr>
+        </table>
+      </div>
+      <div id="example-4" class="example-panel">
+        <div class="equation-box">3x + 1 = x + 9</div>
+        <table class="solution-table">
+          <tr><td><span class="step-num">1</span></td><td><span class="step-expr">3x − x + 1 = x − x + 9</span></td><td class="step-reason">Subtract x from both sides</td></tr>
+          <tr><td><span class="step-num">2</span></td><td><span class="step-expr">2x + 1 = 9</span></td><td class="step-reason">Collect like terms</td></tr>
+          <tr><td><span class="step-num">3</span></td><td><span class="step-expr">2x = 8</span></td><td class="step-reason">Subtract 1 from both sides</td></tr>
+          <tr><td><span class="step-num">4</span></td><td><span class="step-expr">x = 4</span></td><td class="step-reason">Divide both sides by 2 ✓</td></tr>
+          <tr style="background:#f0fff4;"><td colspan="3" style="padding:10px 8px;font-size:13px;color:#2e7d32;"><strong>Check:</strong> 3(4)+1 = 13 and 4+9 = 13 ✓</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🌍 Real-world connections</div>
+      <div class="card-body">
+        Linear equations appear everywhere in daily life:<br><br>
+        <strong>🛒 Shopping:</strong> "A shirt costs $5 more than twice the price of a hat. If the shirt costs $35, what does the hat cost?" → 2x + 5 = 35<br><br>
+        <strong>🚗 Travel:</strong> "A car travels at a constant speed. After 3 hours it has covered 210 km. What is the speed?" → 3x = 210<br><br>
+        <strong>🌡 Temperature:</strong> "Converting Celsius to Fahrenheit: F = 9/5 × C + 32. If F = 77°, find C." → 9/5x + 32 = 77
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: EXPLORE -->
+  <div id="tab-explore" class="panel">
+    <div class="card">
+      <div class="card-title">⚖️ Interactive balance scale visualiser</div>
+      <div class="card-body" style="margin-bottom:1rem;">Adjust <strong>x</strong> until the scale is perfectly level — that gives you the solution to <strong>3x + 2 = 14</strong>. Then verify algebraically using the steps in Tab 2.</div>
+      <svg id="scaleSvg" viewBox="0 0 500 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px;display:block;margin:0 auto;" aria-label="Interactive balance scale">
+        <rect x="236" y="145" width="28" height="55" rx="5" fill="#2a2a3e"/>
+        <rect x="205" y="192" width="90" height="14" rx="5" fill="#1a1a2e"/>
+        <circle cx="250" cy="143" r="8" fill="#4a4a6e"/>
+        <g id="beam" style="transform-origin:250px 143px; transition: transform 0.4s ease;">
+          <line x1="90" y1="143" x2="410" y2="143" stroke="#2a2a3e" stroke-width="5" stroke-linecap="round"/>
+          <line x1="90" y1="143" x2="90" y2="165" stroke="#888" stroke-width="2"/>
+          <line x1="410" y1="143" x2="410" y2="165" stroke="#888" stroke-width="2"/>
+          <rect x="50" y="165" width="80" height="38" rx="8" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2"/>
+          <rect x="370" y="165" width="80" height="38" rx="8" fill="#e3f2fd" stroke="#64b5f6" stroke-width="2"/>
+          <text id="lLabel" x="90" y="189" text-anchor="middle" font-size="13" font-family="Courier New,monospace" fill="#2e7d32" font-weight="700">3x+2</text>
+          <text x="410" y="189" text-anchor="middle" font-size="13" font-family="Courier New,monospace" fill="#1565c0" font-weight="700">14</text>
+        </g>
+      </svg>
+      <div class="slider-row">
+        <label>x =</label>
+        <input type="range" min="0" max="8" value="2" step="1" id="xSlider" oninput="updateScale(parseInt(this.value))">
+        <span class="slider-val" id="xVal">2</span>
+      </div>
+      <div class="balance-result" id="balanceResult"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📈 Graphical approach — plot and solve (ACMNA193)</div>
+      <div class="card-body">
+        For <strong>3x + 2 = 14</strong>: plot y = 3x + 2 and y = 14. The x-coordinate where the lines intersect is the solution.<br><br>
+        <canvas id="graphCanvas" width="500" height="220" style="width:100%;display:block;border-radius:8px;background:#fafaf8;"></canvas>
+        <div style="font-size:13px;color:#888;margin-top:8px;text-align:center;">The two lines meet at x = 4 — confirming the solution found algebraically.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: PRACTICE QUIZ -->
+  <div id="tab-practice" class="panel">
+    <div id="quizArea"></div>
+    <div id="quizSummary" style="display:none;" class="card">
+      <div class="card-title">🏆 Quiz complete!</div>
+      <div class="results-grid">
+        <div class="result-stat"><div class="result-stat-num" id="resScore">0</div><div class="result-stat-lbl">Score</div></div>
+        <div class="result-stat"><div class="result-stat-num" id="resPercent">0%</div><div class="result-stat-lbl">Percentage</div></div>
+        <div class="result-stat"><div class="result-stat-num" id="resBest">0</div><div class="result-stat-lbl">Best streak 🔥</div></div>
+      </div>
+      <div class="score-bar-wrap"><div class="score-bar-fill" id="scoreBarFill" style="width:0%;background:#1a1a2e;"></div></div>
+      <div style="font-size:14px;color:#555;margin:0.5rem 0 1rem;" id="scoreMsg"></div>
+      <div id="resultsList"></div>
+      <button class="restart-btn" onclick="restartQuiz()">Try again ↺</button>
+    </div>
+  </div>
+
+  <!-- TAB 5: SUPPORT -->
+  <div id="tab-support" class="panel">
+    <div style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem;">Differentiated learning pathways</div>
+    <div class="diff-pathway-grid">
+      <div class="diff-card diff-card-foundation">
+        <div class="diff-card-title">🌱 Foundation pathway</div>
+        <div class="diff-card-body">For students who need concrete support before abstract algebra.</div>
+        <ul class="diff-card-tasks">
+          <li>Start with the balance scale visualiser (Tab 3)</li>
+          <li>Work through Examples 1 &amp; 2 only (Tab 2)</li>
+          <li>Attempt Quiz Questions 1–4 (one-step)</li>
+          <li>Use worked examples as a reference while answering</li>
+        </ul>
+      </div>
+      <div class="diff-card diff-card-core">
+        <div class="diff-card-title">🎯 Core pathway</div>
+        <div class="diff-card-body">For students working at Year 8 level expectations.</div>
+        <ul class="diff-card-tasks">
+          <li>Read all of Tab 1 (Learn)</li>
+          <li>Work through Examples 1–4 (Tab 2)</li>
+          <li>Complete all 10 quiz questions</li>
+          <li>Review any incorrect answers carefully</li>
+        </ul>
+      </div>
+      <div class="diff-card diff-card-extension">
+        <div class="diff-card-title">🚀 Extension pathway</div>
+        <div class="diff-card-body">For students ready to go beyond the core curriculum.</div>
+        <ul class="diff-card-tasks" style="display:grid;grid-template-columns:1fr 1fr;gap:0 2rem;">
+          <li>Complete all 10 questions with 100% accuracy</li>
+          <li>Work through Example 5 — variables on both sides</li>
+          <li>Create your own real-world word problems</li>
+          <li>Research: can a linear equation have no solution or infinitely many solutions?</li>
+        </ul>
+      </div>
+    </div>
+    <div class="parent-note">
+      <strong>📬 A note for parents and home learners</strong><br><br>
+      This module works well at home — no specialist maths knowledge is needed from you as a parent. The most effective support you can provide is to ask your child to <strong>explain each solution step in their own words</strong>. Research shows that teaching someone else is one of the most powerful consolidation strategies. If they get stuck, the worked examples (Tab 2) and the balance scale visualiser (Tab 3) are always available to revisit.
+    </div>
+    <div class="curriculum-links">
+      <div class="curriculum-links-title">🔗 Australian Curriculum — Year 8 · Number and Algebra · Linear and non-linear relationships</div>
+      <div class="cl-item">
+        <a href="http://www.scootle.edu.au/ec/search?accContentId=ACMNA193" target="_blank" class="cl-code">ACMNA193</a>
+        <span class="cl-desc">Plot linear relationships on the Cartesian plane with and without the use of digital technologies</span>
+      </div>
+      <div class="cl-item">
+        <a href="http://www.scootle.edu.au/ec/search?accContentId=ACMNA194" target="_blank" class="cl-code">ACMNA194</a>
+        <span class="cl-desc">Solve linear equations using algebraic and graphical techniques. Verify solutions by substitution</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- TAB 6: FURTHER LEARNING -->
+  <div id="tab-external" class="panel">
+
+    <div class="card">
+      <div class="card-title">🌐 Recommended websites for further learning</div>
+      <div class="card-body">The websites below are all <strong>free</strong> and have been selected because they directly support the skills covered in this module — solving and graphing linear equations. They are grouped by purpose so you can choose what suits your learning style best.</div>
+    </div>
+
+    <!-- SECTION: Practice & Skill Building -->
+    <div style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.08em;margin:1.25rem 0 0.75rem;">✏️ Practice &amp; skill building</div>
+
+    <div class="ext-grid">
+
+      <div class="ext-card">
+        <div class="ext-card-header">
+          <div class="ext-card-icon" style="background:#e8f4fd;color:#1565c0;">KA</div>
+          <div>
+            <div class="ext-card-title">Khan Academy</div>
+            <div class="ext-card-url">khanacademy.org</div>
+          </div>
+          <span class="ext-badge ext-badge-free">Free</span>
+        </div>
+        <div class="ext-card-body">Short video lessons and instant-feedback practice exercises on solving linear equations. Great for rewatching explanations at your own pace. Start at <em>8th grade → Linear equations &amp; functions</em>.</div>
+        <div class="ext-card-tags"><span class="ext-tag">Video lessons</span><span class="ext-tag">Practice questions</span><span class="ext-tag">Self-paced</span></div>
+        <div class="ext-card-best">Best for: Students who want step-by-step video explanations</div>
+        <a href="https://www.khanacademy.org/math/cc-eighth-grade-math/cc-8th-linear-equations-functions" target="_blank" class="ext-link-btn">Visit site →</a>
+      </div>
+
+      <div class="ext-card">
+        <div class="ext-card-header">
+          <div class="ext-card-icon" style="background:#e8f5e9;color:#2e7d32;">IXL</div>
+          <div>
+            <div class="ext-card-title">IXL Maths — Year 8</div>
+            <div class="ext-card-url">au.ixl.com/maths/year-8</div>
+          </div>
+          <span class="ext-badge ext-badge-free">Free (limited)</span>
+        </div>
+        <div class="ext-card-body">Adaptive practice aligned to the Australian Curriculum. Answers questions, gets harder or easier depending on your performance. Directly covers ACMNA193 and ACMNA194 skills.</div>
+        <div class="ext-card-tags"><span class="ext-tag">Australian Curriculum</span><span class="ext-tag">Adaptive</span><span class="ext-tag">Year 8 aligned</span></div>
+        <div class="ext-card-best">Best for: Extra drill practice with immediate feedback</div>
+        <a href="https://au.ixl.com/maths/year-8" target="_blank" class="ext-link-btn">Visit site →</a>
+      </div>
+
+      <div class="ext-card">
+        <div class="ext-card-header">
+          <div class="ext-card-icon" style="background:#fff8e1;color:#f57f17;">MS</div>
+          <div>
+            <div class="ext-card-title">Mathspace — Year 8</div>
+            <div class="ext-card-url">mathspace.co</div>
+          </div>
+          <span class="ext-badge ext-badge-free">Free (school account)</span>
+        </div>
+        <div class="ext-card-body">Australian Curriculum-aligned textbook with interactive worked examples, applets and videos. Chapter 6 covers linear relationships directly. Ask your teacher if your school has an account.</div>
+        <div class="ext-card-tags"><span class="ext-tag">Australian Curriculum</span><span class="ext-tag">Interactive textbook</span><span class="ext-tag">Worked examples</span></div>
+        <div class="ext-card-best">Best for: Students who want a complete structured course</div>
+        <a href="https://mathspace.co/textbooks/syllabuses/Syllabus-842/topics/Topic-18498/subtopics/Subtopic-251045/" target="_blank" class="ext-link-btn">Visit site →</a>
+      </div>
+
+    </div>
+
+    <!-- SECTION: Visual & Graphing Tools -->
+    <div style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.08em;margin:1.5rem 0 0.75rem;">📈 Visual &amp; graphing tools</div>
+
+    <div class="ext-grid">
+
+      <div class="ext-card">
+        <div class="ext-card-header">
+          <div class="ext-card-icon" style="background:#fce4ec;color:#c62828;">De</div>
+          <div>
+            <div class="ext-card-title">Desmos Graphing Calculator</div>
+            <div class="ext-card-url">desmos.com/calculator</div>
+          </div>
+          <span class="ext-badge ext-badge-free">Free</span>
+        </div>
+        <div class="ext-card-body">The world's most popular free graphing tool. Type in any equation (e.g. y = 3x + 2 and y = 14) and instantly see the graph. Drag sliders and explore how changing numbers shifts the line. Connects directly to ACMNA193.</div>
+        <div class="ext-card-tags"><span class="ext-tag">Graphing</span><span class="ext-tag">Interactive</span><span class="ext-tag">ACMNA193</span></div>
+        <div class="ext-card-best">Best for: Visual learners who want to see equations as graphs</div>
+        <a href="https://www.desmos.com/calculator" target="_blank" class="ext-link-btn">Visit site →</a>
+      </div>
+
+      <div class="ext-card">
+        <div class="ext-card-header">
+          <div class="ext-card-icon" style="background:#ede7f6;color:#4527a0;">GG</div>
+          <div>
+            <div class="ext-card-title">GeoGebra — Algebra</div>
+            <div class="ext-card-url">geogebra.org</div>
+          </div>
+          <span class="ext-badge ext-badge-free">Free</span>
+        </div>
+        <div class="ext-card-body">Free interactive maths tool combining algebra, graphing, and geometry. Use the Algebra Calculator to solve equations step-by-step, or the Graphing Calculator to visualise linear relationships. No account needed.</div>
+        <div class="ext-card-tags"><span class="ext-tag">Step-by-step solver</span><span class="ext-tag">Graphing</span><span class="ext-tag">No login needed</span></div>
+        <div class="ext-card-best">Best for: Exploring equations visually and checking working</div>
+        <a href="https://www.geogebra.org/graphing" target="_blank" class="ext-link-btn">Visit site →</a>
+      </div>
+
+      <div class="ext-card">
+        <div class="ext-card-header">
+          <div class="ext-card-icon" style="background:#e0f7fa;color:#006064;">MH</div>
+          <div>
+            <div class="ext-card-title">Mathematics Hub — Year 8</div>
+            <div class="ext-card-url">mathematicshub.edu.au</div>
+          </div>
+          <span class="ext-badge ext-badge-free">Free</span>
+        </div>
+        <div class="ext-card-body">Official Australian Government resource hub for maths. The Year 8 planning tool for linear equations links to curated, curriculum-aligned activities, lesson plans, and balance-puzzle tools. Teacher-approved content.</div>
+        <div class="ext-card-tags"><span class="ext-tag">Australian Government</span><span class="ext-tag">Curriculum-aligned</span><span class="ext-tag">Activities</span></div>
+        <div class="ext-card-best">Best for: Students who want official Australian content</div>
+        <a href="https://www.mathematicshub.edu.au/planning-tool/8/algebra/linear-expressions-and-equations/" target="_blank" class="ext-link-btn">Visit site →</a>
+      </div>
+
+    </div>
+
+    <!-- SECTION: Videos -->
+    <div style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.08em;margin:1.5rem 0 0.75rem;">🎬 Video explanations</div>
+
+    <div class="ext-grid">
+
+      <div class="ext-card">
+        <div class="ext-card-header">
+          <div class="ext-card-icon" style="background:#ffebee;color:#c62828;">YT</div>
+          <div>
+            <div class="ext-card-title">Eddie Woo — Maths Videos</div>
+            <div class="ext-card-url">youtube.com/@misterwootube</div>
+          </div>
+          <span class="ext-badge ext-badge-free">Free</span>
+        </div>
+        <div class="ext-card-body">Australian maths teacher Eddie Woo's YouTube channel has clear, engaging videos on linear equations and graphing, all taught in a friendly style. Search "Eddie Woo linear equations" for Year 8-level content. Highly recommended by Australian students.</div>
+        <div class="ext-card-tags"><span class="ext-tag">Australian teacher</span><span class="ext-tag">YouTube</span><span class="ext-tag">Engaging style</span></div>
+        <div class="ext-card-best">Best for: Students who prefer watching over reading</div>
+        <a href="https://www.youtube.com/@misterwootube" target="_blank" class="ext-link-btn">Visit site →</a>
+      </div>
+
+      <div class="ext-card">
+        <div class="ext-card-header">
+          <div
+  Danni Wang (s396630) · ETL503 Understanding Learner Development · Assignment 3: Resource Development · 2026<br>
+  Year 8 Secondary Mathematics · Australian Curriculum (Version 8.4) · ACMNA193 · ACMNA194
+</footer>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'explore') setTimeout(drawGraph, 50);
+}
+
+function showExample(idx, btn) {
+  document.querySelectorAll('.example-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ex-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('example-' + idx).classList.add('active');
+  btn.classList.add('active');
+}
+
+function updateScale(val) {
+  document.getElementById('xVal').textContent = val;
+  const left = 3*val+2, right = 14, diff = left-right;
+  const angle = Math.max(-22, Math.min(22, diff*3.2));
+  document.getElementById('beam').style.transform = 'rotate('+angle+'deg)';
+  document.getElementById('lLabel').textContent = '3('+val+')+2='+left;
+  const res = document.getElementById('balanceResult');
+  if (diff===0) {
+    res.className='balance-result balance-ok';
+    res.innerHTML='⚖️ <strong>Perfectly balanced!</strong> Left = Right = '+right+' → <strong>x = '+val+' is the solution</strong>';
+  } else {
+    res.className='balance-result';
+    const hint = diff>0 ? 'Left side is <strong>'+Math.abs(diff)+' too heavy</strong> — try a smaller x.' : 'Left side is <strong>'+Math.abs(diff)+' too light</strong> — try a larger x.';
+    res.innerHTML='Left: <strong>3('+val+')+2 = '+left+'</strong> | Right: <strong>'+right+'</strong> → '+hint;
+  }
+}
+updateScale(2);
+
+function drawGraph() {
+  const canvas = document.getElementById('graphCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W=canvas.width, H=canvas.height, pad=45;
+  ctx.clearRect(0,0,W,H);
+  const xMin=-1,xMax=7,yMin=-2,yMax=24;
+  const sx=(W-2*pad)/(xMax-xMin), sy=(H-2*pad)/(yMax-yMin);
+  const tx=x=>pad+(x-xMin)*sx, ty=y=>H-pad-(y-yMin)*sy;
+  ctx.strokeStyle='#eeeeea'; ctx.lineWidth=1;
+  for(let x=Math.ceil(xMin);x<=xMax;x++){ctx.beginPath();ctx.moveTo(tx(x),pad);ctx.lineTo(tx(x),H-pad);ctx.stroke();}
+  for(let y=0;y<=yMax;y+=2){ctx.beginPath();ctx.moveTo(pad,ty(y));ctx.lineTo(W-pad,ty(y));ctx.stroke();}
+  ctx.strokeStyle='#bbb'; ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(pad,ty(0));ctx.lineTo(W-pad,ty(0));ctx.stroke();
+  ctx.beginPath();ctx.moveTo(tx(0),pad);ctx.lineTo(tx(0),H-pad);ctx.stroke();
+  ctx.fillStyle='#aaa'; ctx.font='11px Arial'; ctx.textAlign='center';
+  for(let x=0;x<=xMax;x++) ctx.fillText(x,tx(x),ty(0)+14);
+  ctx.textAlign='right';
+  for(let y=0;y<=yMax;y+=4) ctx.fillText(y,tx(0)-5,ty(y)+4);
+  ctx.strokeStyle='#1a1a2e'; ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.moveTo(tx(xMin),ty(3*xMin+2));ctx.lineTo(tx(xMax),ty(3*xMax+2));ctx.stroke();
+  ctx.fillStyle='#1a1a2e'; ctx.font='bold 12px Arial'; ctx.textAlign='left';
+  ctx.fillText('y = 3x + 2',tx(0.2),ty(3*0.2+2)-8);
+  ctx.strokeStyle='#1565c0'; ctx.lineWidth=2.5; ctx.setLineDash([6,4]);
+  ctx.beginPath();ctx.moveTo(tx(xMin),ty(14));ctx.lineTo(tx(xMax),ty(14));ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#1565c0'; ctx.fillText('y = 14',tx(5),ty(14)-8);
+  ctx.beginPath();ctx.arc(tx(4),ty(14),7,0,Math.PI*2);
+  ctx.fillStyle='#e53935'; ctx.fill();
+  ctx.strokeStyle='#fff'; ctx.lineWidth=2; ctx.stroke();
+  ctx.fillStyle='#e53935'; ctx.font='bold 12px Arial'; ctx.textAlign='center';
+  ctx.fillText('x = 4',tx(4)+26,ty(14)-10);
+}
+
+const questions = [
+  {q:"x + 7 = 15",opts:["x = 6","x = 8","x = 22","x = 9"],correct:1,level:"Easy",explanation:"Subtract 7 from both sides: x = 15 − 7 = 8. Check: 8 + 7 = 15 ✓",context:"One-step equation — addition"},
+  {q:"x − 3 = 10",opts:["x = 7","x = 13","x = 30","x = 3"],correct:1,level:"Easy",explanation:"Add 3 to both sides: x = 10 + 3 = 13. Check: 13 − 3 = 10 ✓",context:"One-step equation — subtraction"},
+  {q:"4x = 28",opts:["x = 4","x = 7","x = 112","x = 24"],correct:1,level:"Easy",explanation:"Divide both sides by 4: x = 28 ÷ 4 = 7. Check: 4 × 7 = 28 ✓",context:"One-step equation — multiplication"},
+  {q:"x ÷ 5 = 6",opts:["x = 1.2","x = 11","x = 30","x = 0.83"],correct:2,level:"Easy",explanation:"Multiply both sides by 5: x = 6 × 5 = 30. Check: 30 ÷ 5 = 6 ✓",context:"One-step equation — division"},
+  {q:"2x + 3 = 11",opts:["x = 3","x = 4","x = 7","x = 5"],correct:1,level:"Medium",explanation:"Step 1: subtract 3 → 2x = 8. Step 2: divide by 2 → x = 4. Check: 2(4)+3 = 11 ✓",context:"Two-step equation"},
+  {q:"3x − 5 = 16",opts:["x = 6","x = 7","x = 3","x = 11"],correct:1,level:"Medium",explanation:"Step 1: add 5 → 3x = 21. Step 2: divide by 3 → x = 7. Check: 3(7)−5 = 16 ✓",context:"Two-step equation"},
+  {q:"5x + 2 = 27",opts:["x = 4","x = 5","x = 6","x = 3"],correct:1,level:"Medium",explanation:"Step 1: subtract 2 → 5x = 25. Step 2: divide by 5 → x = 5. Check: 5(5)+2 = 27 ✓",context:"Two-step equation"},
+  {q:"2x + 6 = x + 10",opts:["x = 2","x = 4","x = 8","x = 16"],correct:1,level:"Hard",explanation:"Subtract x: x + 6 = 10. Subtract 6: x = 4. Check: 2(4)+6 = 14 and 4+10 = 14 ✓",context:"Variables on both sides"},
+  {q:"4x − 3 = 2x + 9",opts:["x = 3","x = 4","x = 6","x = 8"],correct:2,level:"Hard",explanation:"Subtract 2x: 2x − 3 = 9. Add 3: 2x = 12. Divide by 2: x = 6. Check: 4(6)−3 = 21 and 2(6)+9 = 21 ✓",context:"Variables on both sides"},
+  {q:"3(x + 2) = 18",opts:["x = 2","x = 4","x = 6","x = 8"],correct:1,level:"Hard",explanation:"Divide both sides by 3: x + 2 = 6. Subtract 2: x = 4. Check: 3(4+2) = 3(6) = 18 ✓",context:"Equation with brackets"}
+];
+
+let current=0, score=0, answered=false, streak=0, bestStreak=0, results=[];
+
+function levelColor(l){return l==='Easy'?'diff-easy':l==='Medium'?'diff-medium':'diff-hard';}
+
+function renderQuestion(){
+  answered=false;
+  const q=questions[current];
+  const pct=Math.round((current/questions.length)*100);
+  document.getElementById('quizArea').innerHTML=`
+    <div class="card">
+      <div class="quiz-header">
+        <span class="quiz-progress-label">Question ${current+1} / ${questions.length}</span>
+        <span class="quiz-score-live">Score: ${score}/${current}</span>
+        <span class="difficulty-badge ${levelColor(q.level)}">${q.level}</span>
+      </div>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+      <div class="quiz-context">${q.context}</div>
+      <div class="quiz-q">Solve for x: &nbsp; ${q.q}</div>
+      <div class="options-grid">${q.opts.map((o,i)=>`<button class="opt-btn" onclick="selectOpt(${i})" id="opt${i}">${o}</button>`).join('')}</div>
+      <div class="feedback" id="fb"></div>
+    </div>`;
+  updatePB();
+}
+
+function selectOpt(idx){
+  if(answered) return;
+  answered=true;
+  const q=questions[current];
+  document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+  document.getElementById('opt'+q.correct).classList.add('correct');
+  const isOk=idx===q.correct;
+  if(isOk){score++;streak++;if(streak>bestStreak)bestStreak=streak;}else{streak=0;document.getElementById('opt'+idx).classList.add('wrong');}
+  const fb=document.getElementById('fb');
+  fb.className='feedback show '+(isOk?'ok':'bad');
+  fb.innerHTML=(isOk?'✅ <strong>Correct!</strong> ':'❌ <strong>Not quite.</strong> ')+q.explanation;
+  results.push({q:q.q,correct:isOk,answer:q.opts[q.correct]});
+  updatePB();
+  setTimeout(()=>{current++;if(current<questions.length)renderQuestion();else showResults();},2600);
+}
+
+function showResults(){
+  document.getElementById('quizArea').innerHTML='';
+  const pct=Math.round((score/questions.length)*100);
+  document.getElementById('quizSummary').style.display='block';
+  document.getElementById('resScore').textContent=score+'/'+questions.length;
+  document.getElementById('resPercent').textContent=pct+'%';
+  document.getElementById('resBest').textContent=bestStreak;
+  const bar=document.getElementById('scoreBarFill');
+  bar.style.width=pct+'%';
+  bar.style.background=pct>=80?'#2e7d32':pct>=60?'#f57f17':'#c62828';
+  const msgs=['Keep going — review the worked examples and try again!','Good effort! Check your answers below and retry.','Well done! A solid performance.','Excellent work! You have a strong grasp of linear equations.'];
+  document.getElementById('scoreMsg').textContent=msgs[Math.min(3,Math.floor(pct/25))];
+  document.getElementById('resultsList').innerHTML='<div style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Question breakdown</div>'+
+    results.map((r,i)=>`<div class="rb-row"><span class="rb-num ${r.correct?'rb-correct':'rb-wrong'}">${i+1}</span><span class="rb-text">${r.q}</span><span>${r.correct?'✅':'❌'}</span>${!r.correct?`<span style="font-size:12px;color:#888;"> → ${r.answer}</span>`:''}</div>`).join('');
+  updatePB();
+}
+
+function restartQuiz(){
+  current=0;score=0;streak=0;bestStreak=0;results=[];
+  document.getElementById('quizSummary').style.display='none';
+  renderQuestion(); updatePB();
+}
+
+function updatePB(){
+  const pct=questions.length>0?Math.round((current/questions.length)*100):0;
+  document.getElementById('overallBar').style.width=pct+'%';
+  document.getElementById('statCorrect').textContent=score;
+  document.getElementById('statAttempted').textContent=current;
+  document.getElementById('statStreak').textContent=streak;
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
