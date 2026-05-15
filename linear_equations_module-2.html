@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solving Linear Equations – Year 8 Maths Module</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f4ef; color: #1a1a1a; line-height: 1.6; }
+
+.page-header { background: #1a1a2e; color: #fff; padding: 2.5rem 2rem; text-align: center; }
+.page-header .course-label { font-size: 12px; color: #8888aa; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+.page-header h1 { font-size: 30px; font-weight: 700; margin-bottom: 0.4rem; }
+.page-header .subtitle { font-size: 15px; color: #aaaacc; }
+
+.container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+.hero { background: #fff; border-radius: 14px; padding: 2rem; margin-bottom: 1.5rem; border: 1px solid #e0e0d8; }
+.hero-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.hero-desc { font-size: 14px; color: #555; line-height: 1.75; margin-bottom: 1.2rem; }
+.hero-meta { display: flex; gap: 1rem; flex-wrap: wrap; }
+.meta-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #666; background: #f4f4ef; padding: 5px 12px; border-radius: 20px; border: 1px solid #e0e0d8; }
+.badge-ac { display: inline-block; font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 20px; background: #e8f4fd; color: #1565c0; border: 1px solid #b3d4f0; }
+
+.nav-tabs { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.tab-btn { font-size: 13px; padding: 9px 18px; border-radius: 10px; border: 1px solid #ddd; background: #fff; color: #555; cursor: pointer; transition: all 0.15s; font-family: inherit; display: flex; align-items: center; gap: 6px; }
+.tab-btn:hover { background: #f0f0ea; border-color: #bbb; color: #1a1a1a; }
+.tab-btn.active { background: #1a1a2e; border-color: #1a1a2e; color: #fff; font-weight: 600; }
+.tab-num { font-size: 11px; background: #e0e0d8; color: #888; padding: 1px 6px; border-radius: 10px; }
+.tab-btn.active .tab-num { background: rgba(255,255,255,0.2); color: #fff; }
+
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card { background: #fff; border: 1px solid #e0e0d8; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.2rem; }
+.card-title { font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 0.75rem; }
+.card-body { font-size: 14px; color: #444; line-height: 1.8; }
+.card-highlight { background: #f0f7ff; border: 1px solid #b3d4f0; border-radius: 14px; padding: 1.5rem; margin-bottom: 1.2rem; }
+
+.outcome-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 4px 12px; border-radius: 6px; background: #e8f5e9; color: #2e7d32; margin-top: 10px; font-weight: 600; border: 1px solid #c8e6c9; }
+
+.equation-box { background: #1a1a2e; border-radius: 10px; padding: 1rem 1.5rem; font-family: 'Courier New', monospace; font-size: 20px; color: #fff; text-align: center; margin: 1rem 0; font-weight: 700; }
+.equation-step { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-bottom: 1px solid #f0f0ea; font-size: 14px; }
+.equation-step:hover { background: #f9f9f6; }
+.equation-step:last-child { border-bottom: none; }
+.eq-expr { font-family: 'Courier New', monospace; color: #1a1a1a; font-weight: 600; font-size: 15px; }
+.eq-reason { color: #888; font-size: 12px; font-style: italic; background: #f4f4ef; padding: 3px 8px; border-radius: 4px; }
+.eq-check { color: #2e7d32; font-size: 13px; font-family: 'Courier New', monospace; font-weight: 600; }
+
+.concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.concept-box { background: #f9f9f6; border: 1px solid #e0e0d8; border-radius: 10px; padding: 1rem 1.25rem; }
+.concept-box-title { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+.concept-box-body { font-size: 13px; color: #555; line-height: 1.65; }
+.concept-box.accent { background: #fff8e1; border-color: #ffe082; }
+.concept-box.accent .concept-box-title { color: #e65100; }
+
+.steps-list { list-style: none; counter-reset: steps; }
+.steps-list li { counter-increment: steps; display: flex; gap: 14px; margin-bottom: 1rem; align-items: flex-start; }
+.steps-list li::before { content: counter(steps); min-width: 30px; height: 30px; border-radius: 50%; background: #1a1a2e; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.step-content { font-size: 14px; color: #444; line-height: 1.75; padding-top: 4px; }
+.step-content strong { color: #1a1a1a; }
+
+.real-world-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.rw-card { background: #f9f9f6; border: 1px solid #e0e0d8; border-radius: 10px; padding: 1.25rem; text-align: center; }
+.rw-icon { font-size: 32px; margin-bottom: 8px; }
+.rw-title { font-size: 13px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+.rw-body { font-size: 12px; color: #666; line-height: 1.6; }
+.rw-eq { font-family: 'Courier New', monospace; font-size: 13px; color: #1565c0; font-weight: 700; margin-top: 8px; background: #e8f4fd; padding: 4px 8px; border-radius: 4px; display: inline-block; }
+
+.slider-row { display: flex; align-items: center; gap: 14px; margin: 1rem 0; }
+.slider-row label { font-size: 14px; color: #555; min-width: 50px; font-weight: 600; }
+.slider-row input[type=range] { flex: 1; accent-color: #1a1a2e; cursor: pointer; }
+.slider-val { font-size: 20px; font-weight: 700; color: #1a1a1a; min-width: 40px; font-family: 'Courier New', monospace; }
+.balance-result { font-size: 14px; padding: 14px 18px; border-radius: 10px; background: #f4f4ef; color: #555; margin-top: 0.75rem; border: 1px solid #e0e0d8; text-align: center; line-height: 1.7; }
+.balance-result strong { color: #1a1a1a; }
+.balance-ok { background: #e8f5e9; border-color: #a5d6a7; color: #1b5e20; }
+.scale-hint { font-size: 13px; color: #888; text-align: center; margin-top: 8px; font-style: italic; }
+
+.quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.quiz-counter { font-size: 13px; color: #888; font-weight: 600; }
+.quiz-score-live { font-size: 13px; color: #2e7d32; font-weight: 700; background: #e8f5e9; padding: 4px 12px; border-radius: 20px; }
+.progress-bar-wrap { background: #f0f0ea; border-radius: 99px; height: 8px; margin-bottom: 1.25rem; }
+.progress-bar-fill { height: 8px; border-radius: 99px; background: #1a1a2e; transition: width 0.5s ease; }
+
+.difficulty-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 0.75rem; }
+.diff-easy { background: #e8f5e9; color: #2e7d32; }
+.diff-medium { background: #fff8e1; color: #e65100; }
+.diff-hard { background: #ffebee; color: #c62828; }
+
+.quiz-context { font-size: 14px; color: #555; font-style: italic; margin-bottom: 0.75rem; line-height: 1.7; padding: 10px 14px; background: #f9f9f6; border-radius: 8px; border-left: 3px solid #1a1a2e; }
+.quiz-q { font-size: 20px; font-weight: 700; color: #1a1a1a; margin-bottom: 1.25rem; font-family: 'Courier New', monospace; }
+.options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+.opt-btn { font-size: 15px; padding: 14px 18px; border-radius: 10px; border: 1.5px solid #e0e0d8; background: #fff; color: #1a1a1a; cursor: pointer; text-align: center; transition: all 0.15s; font-family: 'Courier New', monospace; font-weight: 600; }
+.opt-btn:hover:not(:disabled) { background: #f0f0ea; border-color: #1a1a2e; }
+.opt-btn.correct { background: #e8f5e9; border-color: #4caf50; color: #1b5e20; }
+.opt-btn.wrong { background: #ffebee; border-color: #ef5350; color: #b71c1c; }
+.opt-btn:disabled { cursor: default; }
+
+.feedback { font-size: 14px; padding: 14px 18px; border-radius: 10px; margin-top: 10px; display: none; line-height: 1.7; }
+.feedback.show { display: block; }
+.feedback.ok { background: #e8f5e9; color: #1b5e20; border: 1px solid #a5d6a7; }
+.feedback.bad { background: #ffebee; color: #b71c1c; border: 1px solid #ffcdd2; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.25rem 0; }
+.summary-stat { text-align: center; background: #f4f4ef; border-radius: 10px; padding: 1rem; }
+.summary-stat-num { font-size: 28px; font-weight: 700; color: #1a1a2e; }
+.summary-stat-label { font-size: 12px; color: #888; margin-top: 4px; }
+.medal { font-size: 44px; text-align: center; margin: 0.75rem 0; }
+.summary-msg { font-size: 15px; color: #444; text-align: center; line-height: 1.7; margin-bottom: 1rem; }
+
+.review-list { list-style: none; }
+.review-item { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #f0f0ea; font-size: 13px; }
+.review-item:last-child { border-bottom: none; }
+.review-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.review-q { font-family: 'Courier New', monospace; color: #1a1a1a; font-weight: 600; }
+.review-ans { color: #888; margin-top: 2px; }
+
+.action-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 1rem; }
+.btn-primary { font-size: 14px; padding: 11px 24px; border-radius: 10px; border: none; background: #1a1a2e; color: #fff; cursor: pointer; font-family: inherit; font-weight: 600; }
+.btn-primary:hover { background: #2a2a4e; }
+.btn-secondary { font-size: 14px; padding: 11px 24px; border-radius: 10px; border: 1.5px solid #1a1a2e; background: transparent; color: #1a1a2e; cursor: pointer; font-family: inherit; font-weight: 600; }
+.btn-secondary:hover { background: #f4f4ef; }
+
+.diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.diff-card { border-radius: 14px; padding: 1.25rem; border: 1px solid #e0e0d8; background: #fff; }
+.diff-card-title { font-size: 15px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+.diff-card-body { font-size: 13px; color: #555; line-height: 1.7; }
+.level-tag { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 20px; margin-top: 10px; font-weight: 700; }
+.lvl-foundation { background: #fff8e1; color: #e65100; }
+.lvl-core { background: #e8f4fd; color: #1565c0; }
+.lvl-extension { background: #e8f5e9; color: #2e7d32; }
+
+.parent-note { background: #fafaf5; border: 1px solid #e0e0d8; border-left: 4px solid #1a1a2e; border-radius: 0 12px 12px 0; padding: 1.5rem; margin-top: 1.25rem; font-size: 14px; color: #444; line-height: 1.8; }
+.parent-note strong { color: #1a1a2e; }
+
+.ac-links-card { background: #f0f7ff; border: 1px solid #b3d4f0; border-radius: 14px; padding: 1.5rem; margin-top: 1.25rem; }
+.ac-link-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0e8f8; }
+.ac-link-row:last-child { border-bottom: none; }
+.ac-code { font-weight: 700; color: #fff; background: #1565c0; padding: 4px 10px; border-radius: 6px; font-size: 13px; white-space: nowrap; text-decoration: none; }
+.ac-desc { font-size: 13px; color: #333; line-height: 1.6; }
+
+footer { text-align: center; padding: 2rem; font-size: 12px; color: #aaa; border-top: 1px solid #e0e0d8; margin-top: 2rem; background: #fff; }
+
+@media (max-width: 600px) {
+  .options-grid, .concept-grid, .diff-grid, .real-world-grid, .summary-grid { grid-template-columns: 1fr; }
+  .page-header h1 { font-size: 22px; }
+  .tab-btn { font-size: 12px; padding: 7px 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="course-label">ETL503 · Assignment 3 · Resource Development · Danni Wang (s396630)</div>
+  <h1>Solving Linear Equations</h1>
+  <div class="subtitle">Interactive Online Learning Module · Year 8 Secondary Mathematics · Australian Curriculum</div>
+</div>
+
+<div class="container">
+
+  <div class="hero">
+    <div style="font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Engaging 21st-Century Learners: Technology-Enhanced Pedagogies in Secondary Mathematics Education</div>
+    <div class="hero-title">What will I learn in this module?</div>
+    <div class="hero-desc">In this module you will build a solid understanding of <strong>linear equations</strong> — one of the most important foundations of algebra. You will explore the concept visually using a balance scale, follow worked examples step by step, see how equations connect to graphs and real life, and test your understanding with <strong>10 graded practice questions</strong>. By the end, you will be able to solve any one- and two-step linear equation confidently and verify your answers by substitution.</div>
+    <div class="hero-meta">
+      <div class="meta-item">🕐 60–75 min</div>
+      <div class="meta-item">👥 Year 8</div>
+      <div class="meta-item">💻 Individual or pair</div>
+      <div class="meta-item">✏️ 10 practice questions</div>
+      <div class="meta-item"><span class="badge-ac">ACMNA193 · ACMNA194</span></div>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="switchTab('learn',this)">📖 Learn <span class="tab-num">1</span></button>
+    <button class="tab-btn" onclick="switchTab('examples',this)">🔢 Examples <span class="tab-num">2</span></button>
+    <button class="tab-btn" onclick="switchTab('explore',this)">⚖️ Explore <span class="tab-num">3</span></button>
+    <button class="tab-btn" onclick="switchTab('practice',this)">✏️ Practice <span class="tab-num">10 Qs</span></button>
+    <button class="tab-btn" onclick="switchTab('support',this)">🧩 Support <span class="tab-num">5</span></button>
+  </div>
+
+  <!-- TAB 1: LEARN -->
+  <div id="tab-learn" class="panel active">
+    <div class="card-highlight">
+      <div class="card-title" style="color:#1565c0;">⚖️ The golden rule</div>
+      <div class="card-body">A linear equation states that two expressions are <strong>equal</strong>. The key rule is: <strong>whatever you do to one side, you must do the same to the other.</strong> Think of it as a perfectly balanced scale — if you add or remove something from one side without doing the same to the other, the balance is broken. Your goal is always to <strong>isolate x</strong> — get the variable by itself on one side.</div>
+      <span class="outcome-tag">✅ ACMNA194 — Solve linear equations using algebraic and graphical techniques. Verify solutions by substitution.</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🔑 Key vocabulary</div>
+      <div class="concept-grid">
+        <div class="concept-box">
+          <div class="concept-box-title">📌 Variable</div>
+          <div class="concept-box-body">A letter (usually <em>x</em>) representing an unknown number we are trying to find.</div>
+        </div>
+        <div class="concept-box">
+          <div class="concept-box-title">📌 Equation</div>
+          <div class="concept-box-body">A mathematical statement with an equals sign (=) showing two expressions are equal.</div>
+        </div>
+        <div class="concept-box accent">
+          <div class="concept-box-title">⚡ Inverse operation</div>
+          <div class="concept-box-body">The opposite operation used to undo: <strong>+ ↔ −</strong> and <strong>× ↔ ÷</strong></div>
+        </div>
+        <div class="concept-box accent">
+          <div class="concept-box-title">⚡ Substitution</div>
+          <div class="concept-box-body">Replacing the variable with your answer to <strong>verify</strong> the equation is true.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📋 4-step strategy for solving any linear equation</div>
+      <ul class="steps-list">
+        <li><div class="step-content"><strong>Read carefully.</strong> Identify the variable and which operations have been applied to it.</div></li>
+        <li><div class="step-content"><strong>Apply inverse operations.</strong> Undo operations in reverse order to isolate x. Apply the same operation to BOTH sides every time.</div></li>
+        <li><div class="step-content"><strong>Show every step.</strong> Write each line of working clearly. Do not skip steps — each step is worth marks.</div></li>
+        <li><div class="step-content"><strong>Check by substitution.</strong> Replace x with your answer in the original equation. If both sides are equal, your solution is correct.</div></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🌍 Linear equations in real life</div>
+      <div class="card-body" style="margin-bottom:1rem;">Linear equations appear everywhere. Here are three real examples:</div>
+      <div class="real-world-grid">
+        <div class="rw-card">
+          <div class="rw-icon">🛒</div>
+          <div class="rw-title">Shopping</div>
+          <div class="rw-body">You have $50 and spend $8 per item. How many items can you buy if $2 remains?</div>
+          <div class="rw-eq">50 − 8x = 2</div>
+        </div>
+        <div class="rw-card">
+          <div class="rw-icon">🚴</div>
+          <div class="rw-title">Travel</div>
+          <div class="rw-body">A cyclist travels at 12 km/h. How many hours to cover 36 km?</div>
+          <div class="rw-eq">12x = 36</div>
+        </div>
+        <div class="rw-card">
+          <div class="rw-icon">🌡️</div>
+          <div class="rw-title">Temperature</div>
+          <div class="rw-body">Convert 20°C to Fahrenheit using F = 1.8C + 32.</div>
+          <div class="rw-eq">F = 1.8(20) + 32</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: EXAMPLES -->
+  <div id="tab-examples" class="panel">
+
+    <div class="card">
+      <div class="card-title">🟢 Example 1 — One-step: addition</div>
+      <div class="equation-box">x + 5 = 12</div>
+      <div class="equation-step"><span class="eq-expr">x + 5 − 5 = 12 − 5</span><span class="eq-reason">Subtract 5 from both sides</span></div>
+      <div class="equation-step"><span class="eq-expr">x = 7</span><span class="eq-reason">Simplify</span></div>
+      <div class="equation-step"><span class="eq-check">Check: 7 + 5 = 12 ✓</span><span class="eq-reason">Substitute x = 7</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🟢 Example 2 — One-step: multiplication</div>
+      <div class="equation-box">4x = 28</div>
+      <div class="equation-step"><span class="eq-expr">4x ÷ 4 = 28 ÷ 4</span><span class="eq-reason">Divide both sides by 4</span></div>
+      <div class="equation-step"><span class="eq-expr">x = 7</span><span class="eq-reason">Simplify</span></div>
+      <div class="equation-step"><span class="eq-check">Check: 4 × 7 = 28 ✓</span><span class="eq-reason">Substitute x = 7</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🟡 Example 3 — Two-step equation</div>
+      <div class="equation-box">2x + 3 = 11</div>
+      <div class="equation-step"><span class="eq-expr">2x + 3 − 3 = 11 − 3</span><span class="eq-reason">Step 1: Subtract 3 from both sides</span></div>
+      <div class="equation-step"><span class="eq-expr">2x = 8</span><span class="eq-reason">Simplify</span></div>
+      <div class="equation-step"><span class="eq-expr">2x ÷ 2 = 8 ÷ 2</span><span class="eq-reason">Step 2: Divide both sides by 2</span></div>
+      <div class="equation-step"><span class="eq-expr">x = 4</span><span class="eq-reason">Simplify</span></div>
+      <div class="equation-step"><span class="eq-check">Check: 2(4) + 3 = 11 ✓</span><span class="eq-reason">Substitute x = 4</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🟡 Example 4 — Two-step: subtract then divide</div>
+      <div class="equation-box">3x − 4 = 14</div>
+      <div class="equation-step"><span class="eq-expr">3x − 4 + 4 = 14 + 4</span><span class="eq-reason">Step 1: Add 4 to both sides</span></div>
+      <div class="equation-step"><span class="eq-expr">3x = 18</span><span class="eq-reason">Simplify</span></div>
+      <div class="equation-step"><span class="eq-expr">3x ÷ 3 = 18 ÷ 3</span><span class="eq-reason">Step 2: Divide both sides by 3</span></div>
+      <div class="equation-step"><span class="eq-expr">x = 6</span><span class="eq-reason">Simplify</span></div>
+      <div class="equation-step"><span class="eq-check">Check: 3(6) − 4 = 14 ✓</span><span class="eq-reason">Substitute x = 6</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🔴 Example 5 — Challenge: variable on both sides</div>
+      <div class="equation-box">5x + 2 = 2x + 14</div>
+      <div class="equation-step"><span class="eq-expr">5x − 2x + 2 = 14</span><span class="eq-reason">Step 1: Subtract 2x from both sides</span></div>
+      <div class="equation-step"><span class="eq-expr">3x + 2 = 14</span><span class="eq-reason">Simplify</span></div>
+      <div class="equation-step"><span class="eq-expr">3x = 12</span><span class="eq-reason">Step 2: Subtract 2 from both sides</span></div>
+      <div class="equation-step"><span class="eq-expr">x = 4</span><span class="eq-reason">Step 3: Divide both sides by 3</span></div>
+      <div class="equation-step"><span class="eq-check">Check: 5(4)+2 = 22 = 2(4)+14 ✓</span><span class="eq-reason">Both sides equal</span></div>
+    </div>
+  </div>
+
+  <!-- TAB 3: EXPLORE -->
+  <div id="tab-explore" class="panel">
+
+    <div class="card">
+      <div class="card-title">⚖️ Interactive balance scale</div>
+      <div class="card-body" style="margin-bottom:1rem;">Drag the slider to try different values of <strong>x</strong>. Watch the scale tip when unbalanced and level when you find the correct solution for: <strong style="font-family:Courier New,monospace;">3x + 2 = 14</strong></div>
+
+      <svg id="scaleSvg" viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px;display:block;margin:0 auto;" aria-label="Interactive balance scale visualiser">
+        <rect x="246" y="135" width="28" height="55" rx="5" fill="#444"/>
+        <rect x="205" y="183" width="110" height="14" rx="5" fill="#333"/>
+        <circle cx="260" cy="133" r="8" fill="#555"/>
+        <g id="scaleBeam" style="transform-origin:260px 133px; transition:transform 0.4s ease;">
+          <line x1="90" y1="133" x2="430" y2="133" stroke="#444" stroke-width="5" stroke-linecap="round"/>
+          <line x1="90" y1="133" x2="90" y2="155" stroke="#666" stroke-width="2.5"/>
+          <line x1="430" y1="133" x2="430" y2="155" stroke="#666" stroke-width="2.5"/>
+          <rect x="45" y="155" width="90" height="38" rx="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+          <rect x="385" y="155" width="90" height="38" rx="8" fill="#e3f2fd" stroke="#2196f3" stroke-width="2"/>
+          <text id="leftLabel" x="90" y="179" text-anchor="middle" font-size="13" font-family="Courier New,monospace" fill="#1b5e20" font-weight="700">3x+2</text>
+          <text x="430" y="179" text-anchor="middle" font-size="13" font-family="Courier New,monospace" fill="#0d47a1" font-weight="700">14</text>
+        </g>
+      </svg>
+
+      <div class="slider-row">
+        <label>x =</label>
+        <input type="range" min="0" max="8" value="2" step="1" id="xSlider" oninput="updateScale(parseInt(this.value))">
+        <span class="slider-val" id="xVal">2</span>
+      </div>
+      <div class="balance-result" id="balanceResult">Drag the slider to find the value of x that balances the scale.</div>
+      <div class="scale-hint">💡 Once you find the answer visually, try solving algebraically in the Examples tab to confirm.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📈 What does a linear equation look like on a graph? (ACMNA193)</div>
+      <div class="card-body" style="margin-bottom:1rem;">Every linear equation can be shown as a straight line on the Cartesian plane. When we solve <strong style="font-family:Courier New,monospace;">2x + 1 = 7</strong>, we are finding the x-value where the line <strong style="font-family:Courier New,monospace;">y = 2x + 1</strong> meets the horizontal line <strong style="font-family:Courier New,monospace;">y = 7</strong>.</div>
+      <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px;display:block;margin:0 auto;" aria-label="Graph showing y=2x+1 and y=7 intersecting at x=3">
+        <line x1="50" y1="10" x2="50" y2="240" stroke="#e8e8e0" stroke-width="1"/>
+        <line x1="100" y1="10" x2="100" y2="240" stroke="#e8e8e0" stroke-width="1"/>
+        <line x1="150" y1="10" x2="150" y2="240" stroke="#e8e8e0" stroke-width="1"/>
+        <line x1="200" y1="10" x2="200" y2="240" stroke="#e8e8e0" stroke-width="1"/>
+        <line x1="250" y1="10" x2="250" y2="240" stroke="#e8e8e0" stroke-width="1"/>
+        <line x1="300" y1="10" x2="300" y2="240" stroke="#e8e8e0" stroke-width="1"/>
+        <line x1="350" y1="10" x2="350" y2="240" stroke="#e8e8e0" stroke-width="1"/>
+        <line x1="30" y1="40" x2="390" y2="40" stroke="#e8e8e0" stroke-width="1"/>
+        <line x1="30" y1="80" x2="390" y2="80" stroke="#e8e8e0" stroke-width="1"/>
+        <line x1="30" y1="120" x2="390" y2="120" stroke="#e8e8e0" stroke-width="1"/>
+        <line x1="30" y1="160" x2="390" y2="160" stroke="#e8e8e0" stroke-width="1"/>
+        <line x1="30" y1="200" x2="390" y2="200" stroke="#e8e8e0" stroke-width="1"/>
+        <line x1="50" y1="10" x2="50" y2="240" stroke="#888" stroke-width="2"/>
+        <line x1="30" y1="200" x2="390" y2="200" stroke="#888" stroke-width="2"/>
+        <text x="100" y="218" text-anchor="middle" font-size="11" fill="#888">1</text>
+        <text x="150" y="218" text-anchor="middle" font-size="11" fill="#888">2</text>
+        <text x="200" y="218" text-anchor="middle" font-size="11" fill="#888">3</text>
+        <text x="250" y="218" text-anchor="middle" font-size="11" fill="#888">4</text>
+        <text x="300" y="218" text-anchor="middle" font-size="11" fill="#888">5</text>
+        <text x="38" y="204" text-anchor="end" font-size="11" fill="#888">0</text>
+        <text x="38" y="164" text-anchor="end" font-size="11" fill="#888">2</text>
+        <text x="38" y="124" text-anchor="end" font-size="11" fill="#888">4</text>
+        <text x="38" y="84" text-anchor="end" font-size="11" fill="#888">6</text>
+        <text x="38" y="44" text-anchor="end" font-size="11" fill="#888">8</text>
+        <line x1="50" y1="60" x2="380" y2="60" stroke="#ef5350" stroke-width="2" stroke-dasharray="6,4"/>
+        <text x="355" y="53" font-size="12" fill="#ef5350" font-weight="700">y = 7</text>
+        <line x1="50" y1="180" x2="320" y2="60" stroke="#1565c0" stroke-width="2.5"/>
+        <text x="290" y="52" font-size="12" fill="#1565c0" font-weight="700">y = 2x+1</text>
+        <circle cx="200" cy="60" r="7" fill="#1a1a2e" stroke="#fff" stroke-width="2"/>
+        <line x1="200" y1="63" x2="200" y2="200" stroke="#1a1a2e" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="200" y="230" text-anchor="middle" font-size="13" fill="#1a1a2e" font-weight="700">x = 3</text>
+        <text x="393" y="204" font-size="13" fill="#888" font-weight="700">x</text>
+        <text x="55" y="15" font-size="13" fill="#888" font-weight="700">y</text>
+      </svg>
+      <div class="card-body" style="margin-top:0.75rem;">The graph confirms algebraically that when x = 3: left side = 2(3)+1 = 7 = right side ✓</div>
+    </div>
+  </div>
+
+  <!-- TAB 4: PRACTICE -->
+  <div id="tab-practice" class="panel">
+    <div id="quizArea"></div>
+    <div id="quizSummary" style="display:none;" class="card">
+      <div class="medal" id="medalDisplay">🏆</div>
+      <div class="summary-msg" id="summaryMsg"></div>
+      <div class="summary-grid">
+        <div class="summary-stat"><div class="summary-stat-num" id="statCorrect">0</div><div class="summary-stat-label">Correct answers</div></div>
+        <div class="summary-stat"><div class="summary-stat-num" id="statPct">0%</div><div class="summary-stat-label">Score</div></div>
+        <div class="summary-stat"><div class="summary-stat-num" id="statTime">0s</div><div class="summary-stat-label">Time taken</div></div>
+      </div>
+      <div style="margin:1rem 0;">
+        <div style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.75rem;">Your answers</div>
+        <ul class="review-list" id="reviewList"></ul>
+      </div>
+      <div class="action-btns">
+        <button class="btn-primary" onclick="restartQuiz()">Try again ↺</button>
+        <button class="btn-secondary" onclick="switchTab('examples', document.querySelectorAll('.tab-btn')[1])">Review examples</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 5: SUPPORT -->
+  <div id="tab-support" class="panel">
+    <div style="font-size:12px;color:#888;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.75rem;">Differentiated learning pathways</div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-card-title">👁️ Visual learners</div>
+        <div class="diff-card-body">Start with the balance scale in the Explore tab. Move the slider and watch what happens before writing any algebra. The visual model is your anchor for the abstract concept.</div>
+        <span class="level-tag lvl-foundation">Foundation</span>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-title">📋 Step-by-step scaffold</div>
+        <div class="diff-card-body">Work through all five examples in the Examples tab in order. Cover the reason column and try to identify each step yourself before revealing it.</div>
+        <span class="level-tag lvl-foundation">Foundation</span>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-title">✏️ 10-question practice</div>
+        <div class="diff-card-body">Questions in the Practice tab are graded: Q1–4 are one-step (easy 🟢), Q5–8 are two-step (medium 🟡), and Q9–10 are challenge level (hard 🔴). Read each explanation carefully.</div>
+        <span class="level-tag lvl-core">Core</span>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-title">📈 Graphical connection</div>
+        <div class="diff-card-body">For any equation you solve, plot y = left side and y = right side on graph paper. Where they intersect gives your answer visually — linking algebra to ACMNA193.</div>
+        <span class="level-tag lvl-core">Core</span>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-title">⚡ Extension: write your own</div>
+        <div class="diff-card-body">Create a word problem whose solution requires solving a linear equation. Swap with a classmate. Try equations with negative numbers, fractions, or unknowns on both sides.</div>
+        <span class="level-tag lvl-extension">Extension</span>
+      </div>
+      <div class="diff-card">
+        <div class="diff-card-title">🌍 Real-world modelling</div>
+        <div class="diff-card-body">Choose one of the real-world examples from the Learn tab. Write your own similar scenario, set up the equation, solve it algebraically, and verify graphically.</div>
+        <span class="level-tag lvl-extension">Extension</span>
+      </div>
+    </div>
+
+    <div class="parent-note">
+      <strong>📬 A note for parents and home learners</strong><br><br>
+      This module is designed to be used independently at home. The most powerful support you can offer is to ask your child to <strong>explain each step to you aloud</strong> — even if you already know the answer. Teaching someone else consolidates understanding deeply. If they get stuck, the balance scale and worked examples are always available. Encourage them to check every answer by substitution: it builds the self-correction habit that strong mathematicians use.
+    </div>
+
+    <div class="ac-links-card">
+      <div style="font-size:13px;font-weight:700;color:#1565c0;margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.06em;">Australian Curriculum links · Year 8 · Number and Algebra · Linear and non-linear relationships</div>
+      <div class="ac-link-row">
+        <a href="http://www.scootle.edu.au/ec/search?accContentId=ACMNA193" target="_blank" class="ac-code">ACMNA193</a>
+        <div class="ac-desc">Plot linear relationships on the Cartesian plane with and without the use of digital technologies.</div>
+      </div>
+      <div class="ac-link-row">
+        <a href="http://www.scootle.edu.au/ec/search?accContentId=ACMNA194" target="_blank" class="ac-code">ACMNA194</a>
+        <div class="ac-desc">Solve linear equations using algebraic and graphical techniques. Verify solutions by substitution.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Danni Wang (s396630) · ETL503 Understanding Learner Development · Assignment 3: Resource Development · 2026<br>
+  Year 8 Secondary Mathematics · Australian Curriculum Version 8.4 · ACMNA193 · ACMNA194
+</footer>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+function updateScale(val) {
+  document.getElementById('xVal').textContent = val;
+  const left = 3 * val + 2, right = 14, diff = left - right;
+  const angle = Math.max(-22, Math.min(22, diff * 3.5));
+  document.getElementById('scaleBeam').style.transform = 'rotate(' + angle + 'deg)';
+  document.getElementById('leftLabel').textContent = '3(' + val + ')+2=' + left;
+  const res = document.getElementById('balanceResult');
+  if (diff === 0) {
+    res.className = 'balance-result balance-ok';
+    res.innerHTML = '⚖️ <strong>Perfectly balanced!</strong> When x = ' + val + ': left side = 3(' + val + ')+2 = <strong>' + left + '</strong> = right side <strong>' + right + '</strong>. Solution: x = ' + val + ' ✓';
+  } else if (diff > 0) {
+    res.className = 'balance-result';
+    res.innerHTML = 'Left = <strong>' + left + '</strong>, right = <strong>' + right + '</strong>. Left side is too heavy by ' + diff + '. Try a <strong>smaller</strong> value of x.';
+  } else {
+    res.className = 'balance-result';
+    res.innerHTML = 'Left = <strong>' + left + '</strong>, right = <strong>' + right + '</strong>. Left side is too light by ' + Math.abs(diff) + '. Try a <strong>larger</strong> value of x.';
+  }
+}
+updateScale(2);
+
+const questions = [
+  { diff:'easy', context:'', q:'x + 7 = 15', opts:['x = 6','x = 8','x = 22','x = 9'], correct:1, exp:'Subtract 7 from both sides: x = 15 − 7 = <strong>8</strong>. Check: 8 + 7 = 15 ✓' },
+  { diff:'easy', context:'', q:'3x = 18', opts:['x = 3','x = 6','x = 54','x = 15'], correct:1, exp:'Divide both sides by 3: x = 18 ÷ 3 = <strong>6</strong>. Check: 3 × 6 = 18 ✓' },
+  { diff:'easy', context:'', q:'x − 4 = 9', opts:['x = 5','x = 13','x = 36','x = 4'], correct:1, exp:'Add 4 to both sides: x = 9 + 4 = <strong>13</strong>. Check: 13 − 4 = 9 ✓' },
+  { diff:'easy', context:'', q:'x ÷ 5 = 4', opts:['x = 9','x = 1','x = 20','x = 0.8'], correct:2, exp:'Multiply both sides by 5: x = 4 × 5 = <strong>20</strong>. Check: 20 ÷ 5 = 4 ✓' },
+  { diff:'medium', context:'', q:'2x + 3 = 11', opts:['x = 4','x = 7','x = 14','x = 2'], correct:0, exp:'Step 1 — subtract 3: 2x = 8. Step 2 — divide by 2: x = <strong>4</strong>. Check: 2(4)+3 = 11 ✓' },
+  { diff:'medium', context:'', q:'3x − 4 = 14', opts:['x = 3','x = 10','x = 6','x = 18'], correct:2, exp:'Step 1 — add 4: 3x = 18. Step 2 — divide by 3: x = <strong>6</strong>. Check: 3(6)−4 = 14 ✓' },
+  { diff:'medium', context:'', q:'5x + 1 = 26', opts:['x = 4','x = 5','x = 6','x = 3'], correct:1, exp:'Step 1 — subtract 1: 5x = 25. Step 2 — divide by 5: x = <strong>5</strong>. Check: 5(5)+1 = 26 ✓' },
+  { diff:'medium', context:'A school canteen sells pies for $x each. Mia buys 4 pies and pays an extra $2 for a drink. Her total bill is $14.', q:'4x + 2 = 14', opts:['x = 2','x = 3','x = 4','x = 6'], correct:1, exp:'Step 1 — subtract 2: 4x = 12. Step 2 — divide by 4: x = <strong>3</strong>. Each pie costs $3. Check: 4(3)+2 = 14 ✓' },
+  { diff:'hard', context:'', q:'5x + 2 = 2x + 14', opts:['x = 4','x = 3','x = 6','x = 5'], correct:0, exp:'Step 1 — subtract 2x from both sides: 3x + 2 = 14. Step 2 — subtract 2: 3x = 12. Step 3 — divide by 3: x = <strong>4</strong>. Check: 5(4)+2 = 22 = 2(4)+14 ✓' },
+  { diff:'hard', context:'Jamie is saving money. She starts with $5 and saves $8 per week. Her goal is $61.', q:'5 + 8x = 61', opts:['x = 6 weeks','x = 7 weeks','x = 8 weeks','x = 9 weeks'], correct:1, exp:'Step 1 — subtract 5: 8x = 56. Step 2 — divide by 8: x = <strong>7</strong>. Jamie needs 7 weeks. Check: 5 + 8(7) = 5 + 56 = 61 ✓' },
+];
+
+let current = 0, score = 0, answered = false, startTime = 0, userAnswers = [];
+
+function renderQuestion() {
+  if (current === 0) startTime = Date.now();
+  const q = questions[current];
+  answered = false;
+  const pct = Math.round((current / questions.length) * 100);
+  const dMap = { easy:'<span class="difficulty-badge diff-easy">🟢 Easy</span>', medium:'<span class="difficulty-badge diff-medium">🟡 Medium</span>', hard:'<span class="difficulty-badge diff-hard">🔴 Challenge</span>' };
+  document.getElementById('quizArea').innerHTML = `
+    <div class="card">
+      <div class="quiz-header">
+        <span class="quiz-counter">Question ${current + 1} of ${questions.length}</span>
+        <span class="quiz-score-live">Score: ${score}/${current}</span>
+      </div>
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+      ${dMap[q.diff]}
+      ${q.context ? '<div class="quiz-context">' + q.context + '</div>' : ''}
+      <div class="quiz-q">${q.q}</div>
+      <div class="options-grid">
+        ${q.opts.map((o,i) => `<button class="opt-btn" onclick="selectOpt(${i})" id="opt${i}">${o}</button>`).join('')}
+      </div>
+      <div class="feedback" id="fb"></div>
+    </div>`;
+}
+
+function selectOpt(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[current];
+  document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+  const isCorrect = idx === q.correct;
+  if (isCorrect) score++;
+  document.getElementById('opt' + q.correct).classList.add('correct');
+  if (!isCorrect) document.getElementById('opt' + idx).classList.add('wrong');
+  const fb = document.getElementById('fb');
+  fb.className = 'feedback show ' + (isCorrect ? 'ok' : 'bad');
+  fb.innerHTML = (isCorrect ? '✅ Correct! ' : '❌ Not quite — ') + q.exp;
+  userAnswers.push({ q: q.q, correct: isCorrect, correctAns: q.opts[q.correct] });
+  setTimeout(() => { current++; current < questions.length ? renderQuestion() : showSummary(); }, 2800);
+}
+
+function showSummary() {
+  document.getElementById('quizArea').innerHTML = '';
+  document.getElementById('quizSummary').style.display = 'block';
+  const pct = Math.round((score / questions.length) * 100);
+  const elapsed = Math.round((Date.now() - startTime) / 1000);
+  document.getElementById('statCorrect').textContent = score + '/10';
+  document.getElementById('statPct').textContent = pct + '%';
+  document.getElementById('statTime').textContent = elapsed + 's';
+  const medals = ['😔','🌱','👍','⭐','🏆'];
+  const mi = pct >= 90 ? 4 : pct >= 70 ? 3 : pct >= 50 ? 2 : pct >= 30 ? 1 : 0;
+  document.getElementById('medalDisplay').textContent = medals[mi];
+  const msgs = [
+    'Keep going! Review the worked examples carefully and focus on the 4-step strategy.',
+    'Good start! Look at the feedback for the questions you missed, then try again.',
+    'Solid effort! You have a good foundation — review the two-step examples and retry.',
+    'Great work! Strong understanding of linear equations. Try the extension challenges.',
+    'Outstanding! You have mastered this topic. Try the real-world modelling extension.'
+  ];
+  document.getElementById('summaryMsg').innerHTML = msgs[mi];
+  document.getElementById('reviewList').innerHTML = userAnswers.map(a =>
+    `<li class="review-item"><span class="review-icon">${a.correct ? '✅' : '❌'}</span><div><div class="review-q">${a.q}</div>${!a.correct ? '<div class="review-ans">Correct answer: ' + a.correctAns + '</div>' : ''}</div></li>`
+  ).join('');
+}
+
+function restartQuiz() {
+  current = 0; score = 0; userAnswers = [];
+  document.getElementById('quizSummary').style.display = 'none';
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
